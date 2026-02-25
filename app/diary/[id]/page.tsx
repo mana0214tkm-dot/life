@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Header } from "@/components/Header";
+import Header from './components/Header'
 
 type Entry = {
   id: string;

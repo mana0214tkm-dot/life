@@ -1,8 +1,6 @@
 "use client";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Header } from "@/components/Header";
 
 type Entry = {
   id: string;
@@ -47,7 +45,6 @@ export default function HomePage() {
 
   return (
     <>
-      <Header />
       <main className="container">
         <section className="card heroWrap kira" style={{ padding: 18 }}>
           <div className="heroBg" />
