@@ -70,6 +70,7 @@ export function TimeBlockSection() {
             value={taskId}
             onChange={e => onSelectTask(e.target.value)}
             style={{ flex: 2, minWidth: 160 }}
+            aria-label="タスクを選択"
           >
             <option value="">── タスクから選ぶ ──</option>
             {undone.map(t => (
@@ -87,6 +88,7 @@ export function TimeBlockSection() {
             placeholder="直接入力"
             value={name}
             onChange={e => setName(e.target.value)}
+            aria-label="ブロック名を直接入力"
           />
         </div>
 
@@ -94,11 +96,11 @@ export function TimeBlockSection() {
           {/* start */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <label style={{ fontSize: 12, color: 'var(--muted)', whiteSpace: 'nowrap' }}>開始</label>
-            <select value={startH} onChange={e => setStartH(e.target.value)} style={{ width: 72 }}>
+            <select value={startH} onChange={e => setStartH(e.target.value)} style={{ width: 72 }} aria-label="開始時">
               {HOURS.map(h => <option key={h} value={pad(h)}>{pad(h)}時</option>)}
             </select>
             <span style={{ color: 'var(--muted)' }}>:</span>
-            <select value={startM} onChange={e => setStartM(e.target.value)} style={{ width: 62 }} title="開始分">
+            <select value={startM} onChange={e => setStartM(e.target.value)} style={{ width: 62 }} aria-label="開始分">
               <option value="00">00</option><option value="30">30</option>
             </select>
           </div>
@@ -106,16 +108,16 @@ export function TimeBlockSection() {
           {/* end */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <label style={{ fontSize: 12, color: 'var(--muted)', whiteSpace: 'nowrap' }}>終了</label>
-            <select value={endH} onChange={e => setEndH(e.target.value)} style={{ width: 72 }}>
+            <select value={endH} onChange={e => setEndH(e.target.value)} style={{ width: 72 }} aria-label="終了時">
               {HOURS.map(h => <option key={h} value={pad(h)}>{pad(h)}時</option>)}
             </select>
             <span style={{ color: 'var(--muted)' }}>:</span>
-            <select value={endM} onChange={e => setEndM(e.target.value)} style={{ width: 62 }}>
+            <select value={endM} onChange={e => setEndM(e.target.value)} style={{ width: 62 }} aria-label="終了分">
               <option value="00">00</option><option value="30">30</option>
             </select>
           </div>
 
-          <select value={color} onChange={e => setColor(e.target.value as BlockColor)} style={{ width: 110 }}>
+          <select value={color} onChange={e => setColor(e.target.value as BlockColor)} style={{ width: 110 }} aria-label="カラー">
             <option value="">紫（集中）</option>
             <option value="green">緑（健康）</option>
             <option value="orange">橙（学習）</option>

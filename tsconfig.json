@@ -30,5 +30,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "my-app", "*.tsx", "*.ts", "Store usestore.ts"]
+  "exclude": ["node_modules", "my-app", "Layout.tsx", "Sidebar.tsx", "Timeblocksection.tsx", "Todaysection.tsx", "Trackersection.tsx", "Store usestore.ts"]
 }
