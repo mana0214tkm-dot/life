@@ -150,7 +150,7 @@ export function TodaySection({ onFocusOpen }: Props) {
         </div>
       )}
 
-      {/* ── ADHD toolbar ── */}
+      {/* ── focus toolbar ── */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
         <button className="btn btn-ghost btn-sm" onClick={onFocusOpen}>🔬 フォーカスモード</button>
         <button className="btn btn-ghost btn-sm" onClick={onFocusOpen}>⏱ とりあえず5分</button>

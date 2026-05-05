@@ -40,7 +40,7 @@ export function Sidebar({ current, onNav }: Props) {
         borderBottom: '1px solid var(--border)',
         flexShrink: 0,
       }}>
-        予定管理<span style={{ color: 'var(--green)' }}>+</span>
+        にがてノート<span style={{ color: 'var(--green)', fontSize: 11, fontWeight: 400, marginLeft: 4 }}>✦</span>
       </div>
 
       {/* Nav */}

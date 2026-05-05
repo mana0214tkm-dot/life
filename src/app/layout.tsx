@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'ふわキラ日記',
-  description: 'ADHD対応スケジュール管理',
+  title: 'にがてノート',
+  description: 'やることが苦手でも大丈夫。やさしい予定・タスク管理アプリ',
 }
 
 export default function RootLayout({
