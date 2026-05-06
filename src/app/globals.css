@@ -164,3 +164,48 @@ button { cursor: pointer; font-family: var(--sans); }
   font-size: 36px;
   margin-bottom: 10px;
 }
+
+/* ── responsive shell ── */
+.app-shell    { display: flex; height: 100dvh; overflow: hidden; }
+.app-main     { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.main-content { flex: 1; overflow-y: auto; padding: 24px 28px; }
+
+.sidebar-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 199;
+  background: rgba(0,0,0,0.4);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+/* hamburger hidden on desktop */
+.menu-btn { display: none !important; }
+
+@media (max-width: 768px) {
+  /* sidebar becomes a slide-in drawer */
+  .app-sidebar {
+    position: fixed !important;
+    top: 0; left: 0; height: 100dvh;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 200;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+  }
+  .app-sidebar.open { transform: translateX(0); }
+
+  /* dim overlay */
+  .sidebar-overlay { display: block; }
+  .sidebar-overlay.visible { opacity: 1; pointer-events: auto; }
+
+  /* hamburger visible on mobile */
+  .menu-btn { display: flex !important; }
+
+  /* tighter content padding */
+  .main-content { padding: 12px 12px 80px; }
+
+  /* smaller cards */
+  .card { padding: 12px 14px; }
+
+  /* smaller pills */
+  .pill { padding: 4px 10px; font-size: 11px; }
+}

@@ -18,14 +18,16 @@ const MOODS = ['😫', '😐', '🙂', '😄', '🔥']
 interface Props {
   current: NavSection
   onNav:   (s: NavSection) => void
+  isOpen:  boolean
+  onClose: () => void
 }
 
-export function Sidebar({ current, onNav }: Props) {
+export function Sidebar({ current, onNav, isOpen, onClose }: Props) {
   const [mood,  setMood]  = useState('')
   const [focus, setFocus] = useState(5)
 
   return (
-    <aside style={{
+    <aside className={`app-sidebar${isOpen ? ' open' : ''}`} style={{
       width: 220, flexShrink: 0,
       background: 'var(--bg2)',
       borderRight: '1px solid var(--border)',
@@ -39,8 +41,16 @@ export function Sidebar({ current, onNav }: Props) {
         color: 'var(--accent)',
         borderBottom: '1px solid var(--border)',
         flexShrink: 0,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
-        にがてノート<span style={{ color: 'var(--green)', fontSize: 11, fontWeight: 400, marginLeft: 4 }}>✦</span>
+        <span>にがてノート<span style={{ color: 'var(--green)', fontSize: 11, fontWeight: 400, marginLeft: 4 }}>✦</span></span>
+        <button
+          type="button"
+          className="menu-btn btn-icon"
+          onClick={onClose}
+          aria-label="メニューを閉じる"
+          style={{ fontSize: 16, padding: '2px 6px' }}
+        >✕</button>
       </div>
 
       {/* Nav */}

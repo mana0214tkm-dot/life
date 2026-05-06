@@ -25,17 +25,31 @@ export const SECTION_TITLES: Record<NavSection, string> = {
 }
 
 export function AppShell() {
-  const [section, setSection] = useState<NavSection>('today')
+  const [section,   setSection]   = useState<NavSection>('today')
   const [focusOpen, setFocusOpen] = useState(false)
+  const [menuOpen,  setMenuOpen]  = useState(false)
+
+  const navigate = (s: NavSection) => { setSection(s); setMenuOpen(false) }
 
   return (
-    <div style={{ display: 'flex', height: '100dvh', overflow: 'hidden' }}>
-      <Sidebar current={section} onNav={setSection} />
+    <div className="app-shell">
+      {/* dim overlay — tap to close sidebar on mobile */}
+      <div
+        className={`sidebar-overlay${menuOpen ? ' visible' : ''}`}
+        onClick={() => setMenuOpen(false)}
+      />
 
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        <Header title={SECTION_TITLES[section]} />
+      <Sidebar
+        current={section}
+        onNav={navigate}
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+      />
 
-        <main style={{ flex: 1, overflowY: 'auto', padding: '24px 28px' }}>
+      <div className="app-main">
+        <Header title={SECTION_TITLES[section]} onMenuOpen={() => setMenuOpen(true)} />
+
+        <main className="main-content">
           {section === 'today'     && <TodaySection onFocusOpen={() => setFocusOpen(true)} />}
           {section === 'calendar'  && <CalendarSection />}
           {section === 'timeblock' && <TimeBlockSection />}
