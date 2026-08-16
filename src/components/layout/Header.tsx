@@ -23,6 +23,13 @@ export function Header({ title, onMenuOpen }: { title: string; onMenuOpen: () =>
           aria-label="メニューを開く"
           style={{ fontSize: 20, padding: '2px 6px', flexShrink: 0 }}
         >☰</button>
+        <div style={{ width: 44, height: 44, borderRadius: 12, overflow: 'hidden', flexShrink: 0, boxShadow: '0 8px 18px rgba(79,70,229,0.14)' }}>
+          <img
+            src="/images-1.jpeg"
+            alt="Schedule photo"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
+        </div>
         <h1 style={{ fontSize: 17, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{title}</h1>
       </div>
       <div style={{

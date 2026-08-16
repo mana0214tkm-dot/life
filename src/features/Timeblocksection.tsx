@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useStore }   from '@/store/useStore'
-import type { BlockColor } from '@/types'
+import type { BlockColor, Task, TimeBlock } from '@/types'
 
 const HOURS = Array.from({ length: 18 }, (_, i) => i + 6) // 6–23
 
@@ -9,7 +9,7 @@ function pad(n: number) { return String(n).padStart(2, '0') }
 
 export function TimeBlockSection() {
   const { tasks, blocks, addBlock, deleteBlock } = useStore()
-  const undone = tasks.filter(t => !t.done)
+  const undone = tasks.filter((t: Task) => !t.done)
 
   const now    = new Date()
   const nowMin = now.getHours() * 60 + now.getMinutes()
@@ -25,7 +25,7 @@ export function TimeBlockSection() {
 
   const onSelectTask = (id: string) => {
     setTaskId(id)
-    const t = tasks.find(t => t.id === parseInt(id))
+    const t = tasks.find((t: Task) => t.id === parseInt(id))
     if (!t) return
     setName(t.name)
     if (t.duration) {
@@ -39,7 +39,7 @@ export function TimeBlockSection() {
   }
 
   const handleAdd = () => {
-    const finalName = name.trim() || undone.find(t => t.id === parseInt(taskId))?.name || ''
+    const finalName = name.trim() || undone.find((t: Task) => t.id === parseInt(taskId))?.name || ''
     if (!finalName) { alert('タスクを選ぶか名前を入力してください'); return }
     const startMin = parseInt(startH) * 60 + parseInt(startM)
     const endMin   = parseInt(endH)   * 60 + parseInt(endM)
@@ -73,7 +73,7 @@ export function TimeBlockSection() {
             style={{ flex: 2, minWidth: 160 }}
           >
             <option value="">── タスクから選ぶ ──</option>
-            {undone.map(t => (
+            {undone.map((t: Task) => (
               <option key={t.id} value={t.id}>
                 {t.priority === 'high' ? '🔴' : t.priority === 'mid' ? '🟡' : '🟢'} {t.name}
                 {t.duration ? ` (${t.duration}分)` : ''}
@@ -149,7 +149,7 @@ export function TimeBlockSection() {
             const isHour  = m === 0
             const label   = `${pad(h)}:${pad(m)}`
 
-            const slotBlocks = blocks.filter(b => {
+            const slotBlocks = blocks.filter((b: TimeBlock) => {
               const [bh, bm] = b.start.split(':').map(Number)
               return bh * 60 + bm === slotMin
             })
@@ -192,7 +192,7 @@ export function TimeBlockSection() {
                   )}
 
                   {/* blocks */}
-                  {slotBlocks.map(b => {
+                  {slotBlocks.map((b: TimeBlock) => {
                     const s = blockStyle(b.color)
                     return (
                       <div key={b.id}>
