@@ -9,7 +9,6 @@ const NAV: { id: NavSection; icon: string; label: string }[] = [
   { id: 'priority',  icon: '🏅', label: '優先順位を決める' },
   { id: 'matrix',    icon: '🎯', label: 'アイゼンハワー' },
   { id: 'tracker',   icon: '⏱',  label: 'タイムトラッキング' },
-  { id: 'notlist',   icon: '🚫', label: 'やらないこと' },
   { id: 'report',    icon: '📊', label: '達成グラフ' },
 ]
 

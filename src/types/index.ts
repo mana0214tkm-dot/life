@@ -54,4 +54,4 @@ export interface TrackingEntry {
 export type FilterType = 'all' | 'high' | 'undone' | 'done' | 'today' | 'daily' | 'weekly' | 'score'
 export type NavSection =
   | 'today' | 'calendar' | 'timeblock' | 'priority'
-  | 'matrix' | 'tracker' | 'notlist' | 'report'
+  | 'matrix' | 'tracker' | 'report'

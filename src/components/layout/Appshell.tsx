@@ -9,7 +9,6 @@ import { TimeBlockSection } from '@/features/Timeblocksection'
 import { PrioritySection }  from '@/features/Prioritysection'
 import { MatrixSection }    from '@/features/Matrixsection'
 import { TrackerSection }   from '@/features/Trackersection'
-import { NotListSection }   from '@/features/Notlistsection'
 import { ReportSection }    from '@/features/Reportsection'
 import { FocusOverlay }     from '@/features/Focusoverlay'
 
@@ -20,7 +19,6 @@ export const SECTION_TITLES: Record<NavSection, string> = {
   priority:  '優先順位を決める',
   matrix:    'アイゼンハワーマトリクス',
   tracker:   'タイムトラッキング',
-  notlist:   'やらないことリスト',
   report:    '達成グラフ・振り返り',
 }
 
@@ -56,7 +54,6 @@ export function AppShell() {
           {section === 'priority'  && <PrioritySection />}
           {section === 'matrix'    && <MatrixSection />}
           {section === 'tracker'   && <TrackerSection />}
-          {section === 'notlist'   && <NotListSection />}
           {section === 'report'    && <ReportSection />}
         </main>
       </div>
