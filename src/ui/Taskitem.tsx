@@ -1,10 +1,13 @@
 'use client'
+import { useEffect, useRef, useState } from 'react'
 import { useStore } from '@/store/useStore'
 import type { Task } from '@/types'
-import { priorityColor, priorityLabel } from '@/lib/utils'
+import { priorityLabel } from '@/lib/utils'
 
 export function TaskItem({ task: t }: { task: Task }) {
   const { toggleTask, deleteTask, decompose, toggleStep } = useStore()
+  const [celebrating, setCelebrating] = useState(false)
+  const celebrationTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const hasSteps  = t.steps.length > 0
   const doneSteps = t.steps.filter(s => s.done).length
@@ -12,8 +15,21 @@ export function TaskItem({ task: t }: { task: Task }) {
     !t.done && t.dueDate &&
     new Date(t.dueDate + (t.dueTime ? 'T' + t.dueTime : '')) < new Date()
 
+  useEffect(() => () => {
+    if (celebrationTimer.current) clearTimeout(celebrationTimer.current)
+  }, [])
+
+  const handleToggle = () => {
+    if (!t.done) {
+      setCelebrating(true)
+      if (celebrationTimer.current) clearTimeout(celebrationTimer.current)
+      celebrationTimer.current = setTimeout(() => setCelebrating(false), 900)
+    }
+    toggleTask(t.id)
+  }
+
   return (
-    <div style={{
+    <div className={`task-item${celebrating ? ' task-item-celebrating' : ''}`} style={{
       display: 'flex', alignItems: 'flex-start', gap: 12,
       padding: '12px 16px', marginBottom: 8,
       background: 'var(--bg2)',
@@ -21,10 +37,14 @@ export function TaskItem({ task: t }: { task: Task }) {
       borderRadius: 10,
       opacity: t.done ? 0.48 : 1,
       transition: 'opacity 0.15s',
+      position: 'relative',
     }}>
+      {celebrating && <span className="growth-pop" aria-live="polite">＋1 成長</span>}
+
       {/* ── checkbox ── */}
       <button
-        onClick={() => toggleTask(t.id)}
+        onClick={handleToggle}
+        aria-label={t.done ? `${t.name}を未完了に戻す` : `${t.name}を完了にする`}
         style={{
           flexShrink: 0, marginTop: 1,
           width: 20, height: 20, borderRadius: '50%',

@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 const DAYS = ['日', '月', '火', '水', '木', '金', '土']
 
 export function Header({ title, onMenuOpen }: { title: string; onMenuOpen: () => void }) {
@@ -24,9 +26,11 @@ export function Header({ title, onMenuOpen }: { title: string; onMenuOpen: () =>
           style={{ fontSize: 20, padding: '2px 6px', flexShrink: 0 }}
         >☰</button>
         <div style={{ width: 44, height: 44, borderRadius: 12, overflow: 'hidden', flexShrink: 0, boxShadow: '0 8px 18px rgba(79,70,229,0.14)' }}>
-          <img
+          <Image
             src="/images-1.jpeg"
             alt="Schedule photo"
+            width={44}
+            height={44}
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
         </div>

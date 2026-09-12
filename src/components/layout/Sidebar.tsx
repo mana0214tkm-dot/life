@@ -1,6 +1,8 @@
 'use client'
-import { useState } from 'react'
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 import type { NavSection } from '@/types'
+import { useStore } from '@/store/useStore'
 
 const NAV: { id: NavSection; icon: string; label: string }[] = [
   { id: 'today',     icon: '📋', label: '今日のタスク' },
@@ -24,6 +26,29 @@ interface Props {
 export function Sidebar({ current, onNav, isOpen, onClose }: Props) {
   const [mood,  setMood]  = useState('')
   const [focus, setFocus] = useState(5)
+  const streakData = useStore(s => s.streakData)
+  const growthPoints = Object.values(streakData).reduce((total, count) => total + count, 0)
+  const previousPoints = useRef(growthPoints)
+  const [petCelebrating, setPetCelebrating] = useState(false)
+  const growthStage = growthPoints >= 20 ? 3 : growthPoints >= 10 ? 2 : growthPoints >= 3 ? 1 : 0
+  const growthStages = [
+    { name: 'たまごロボ', icon: '🥚', next: 3 },
+    { name: 'ひよこロボ', icon: '🐣', next: 10 },
+    { name: 'おてつだいロボ', icon: '🤖', next: 20 },
+    { name: 'そらとぶロボ', icon: '🚀', next: null },
+  ] as const
+  const growth = growthStages[growthStage]
+  const progress = growth.next === null ? 100 : Math.min(100, (growthPoints / growth.next) * 100)
+
+  useEffect(() => {
+    if (previousPoints.current !== growthPoints) {
+      setPetCelebrating(true)
+      const timer = setTimeout(() => setPetCelebrating(false), 1100)
+      previousPoints.current = growthPoints
+      return () => clearTimeout(timer)
+    }
+    previousPoints.current = growthPoints
+  }, [growthPoints])
 
   return (
     <aside className={`app-sidebar${isOpen ? ' open' : ''}`} style={{
@@ -44,7 +69,7 @@ export function Sidebar({ current, onNav, isOpen, onClose }: Props) {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
           <div style={{ width: 32, height: 32, borderRadius: 12, overflow: 'hidden', flexShrink: 0, boxShadow: '0 8px 16px rgba(79,70,229,0.12)' }}>
-            <img src="/real-schedule-photo.svg" alt="Sidebar photo" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <Image src="/real-schedule-photo.svg" alt="Sidebar photo" width={32} height={32} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
           <span>にがてノート<span style={{ color: 'var(--green)', fontSize: 11, fontWeight: 400, marginLeft: 4 }}>✦</span></span>
         </div>
@@ -82,6 +107,30 @@ export function Sidebar({ current, onNav, isOpen, onClose }: Props) {
           </button>
         ))}
       </nav>
+
+      {/* Growth pet */}
+      <div className={`growth-pet${petCelebrating ? ' growth-pet-celebrating' : ''}`} aria-label={`成長中の${growth.name}。達成タスク${growthPoints}個`}>
+        <div className="growth-pet-header">
+          <span>育成ロボ</span>
+          <span className="growth-pet-level">Lv.{growthStage + 1}</span>
+        </div>
+        <div className="growth-pet-stage">
+          <div key={growthStage} className="growth-pet-icon" aria-hidden="true">
+            {growth.icon}
+          </div>
+          {petCelebrating && <span className="growth-pet-speech" aria-live="polite">すごい！</span>}
+          <div>
+            <div className="growth-pet-name">{growth.name}</div>
+            <div className="growth-pet-message">
+              {growth.next === null ? '最高の相棒だね！' : `あと${growth.next - growthPoints}個で進化`}
+            </div>
+          </div>
+        </div>
+        <div className="growth-pet-track" aria-hidden="true">
+          <div className="growth-pet-progress" style={{ width: `${progress}%` }} />
+        </div>
+        <div className="growth-pet-count">達成タスク {growthPoints}</div>
+      </div>
 
       {/* Footer */}
       <div style={{
