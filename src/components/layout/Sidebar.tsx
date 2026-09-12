@@ -71,7 +71,7 @@ export function Sidebar({ current, onNav, isOpen, onClose }: Props) {
           <div style={{ width: 32, height: 32, borderRadius: 12, overflow: 'hidden', flexShrink: 0, boxShadow: '0 8px 16px rgba(79,70,229,0.12)' }}>
             <Image src="/real-schedule-photo.svg" alt="Sidebar photo" width={32} height={32} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
-          <span>にがてノート<span style={{ color: 'var(--green)', fontSize: 11, fontWeight: 400, marginLeft: 4 }}>✦</span></span>
+          <span>人生ときめき<span style={{ color: 'var(--green)', fontSize: 11, fontWeight: 400, marginLeft: 4 }}>✦</span></span>
         </div>
         <button
           type="button"
