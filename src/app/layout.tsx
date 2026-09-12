@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: '人生ときめき',
     description: '毎日の小さな達成をときめきに変える、やさしい予定・タスク管理アプリ',
-    url: 'https://my-app-mu-eight-87.vercel.app',
     siteName: '人生ときめき',
     locale: 'ja_JP',
     type: 'website',
